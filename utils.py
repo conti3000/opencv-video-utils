@@ -1,4 +1,5 @@
 import re
+import os
 
 def natural_sort(given_list):
     """ Sort the given list in the way that humans expect."""
@@ -52,3 +53,26 @@ def make_video_from_images(img_paths, outvid_path, fps=25, size=None,
     if vid is not None:
         vid.release()
     return vid
+
+def get_video_frames(video_path, output_path):
+  vid = cv2.VideoCapture(video_path) # detect on video    
+  count = 0 
+  while(True):
+      ret,frame = vid.read()
+      if frame is None:
+          break
+
+      frame_name = 'frame' + '{:05d}'.format(count) + '.jpg'
+      count+= 1
+      filename = os.path.join(output_path,frame_name)
+      cv2.imwrite(filename, frame)
+
+
+def pad_img(image):
+  h, w = image.shape[:2]
+  # Padding on the small side to get a square shape
+  frame_size = max(h, w)
+  pad_h = int((frame_size - h)/2)
+  pad_w = int((frame_size - w)/2)
+  frame = cv2.copyMakeBorder(image, pad_h, pad_h, pad_w, pad_w, cv2.BORDER_CONSTANT)
+  return frame
