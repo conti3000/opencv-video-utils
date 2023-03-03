@@ -1,5 +1,6 @@
 import re
 import os
+import cv2
 
 def natural_sort(given_list):
     """ Sort the given list in the way that humans expect."""
