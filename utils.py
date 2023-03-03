@@ -76,3 +76,5 @@ def pad_img(image):
   pad_w = int((frame_size - w)/2)
   frame = cv2.copyMakeBorder(image, pad_h, pad_h, pad_w, pad_w, cv2.BORDER_CONSTANT)
   return frame
+
+
